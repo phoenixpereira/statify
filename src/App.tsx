@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import RecentArtist from './components/MostRecentFollowedArtist';
 import Profile from './components/Profile';
+import RecentSong from './components/RecentSong';
 import Top1Songs from './components/Top3Songs';
 import { loginUrl } from './spotify';
 
@@ -47,6 +48,7 @@ export default function App() {
 					<Profile />
 					<Top1Songs />
 					<RecentArtist />
+					<RecentSong />
 					<Button type="primary" onClick={logout}>
 						Logout
 					</Button>
