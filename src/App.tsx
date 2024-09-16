@@ -1,9 +1,10 @@
 import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 
+import Profile from './components/Profile';
 import { loginUrl } from './spotify';
 
-function App() {
+export default function App() {
 	const [token, setToken] = useState('');
 
 	useEffect(() => {
@@ -37,12 +38,13 @@ function App() {
 					Log in to Spotify
 				</Button>
 			) : (
-				<Button type="primary" onClick={logout}>
-					Logout
-				</Button>
+				<>
+					<Profile />
+					<Button type="primary" onClick={logout}>
+						Logout
+					</Button>
+				</>
 			)}
 		</div>
 	);
 }
-
-export default App;
