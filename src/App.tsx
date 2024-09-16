@@ -7,28 +7,31 @@ import Top1Songs from './components/Top3Songs';
 import { loginUrl } from './spotify';
 
 export default function App() {
-	const [token, setToken] = useState('');
+	const [token, setToken] = useState<string | null>(null);
 
 	useEffect(() => {
 		const hash = window.location.hash;
-		let token = window.localStorage.getItem('token');
+		let localToken = window.localStorage.getItem('token');
 
-		if (!token && hash) {
-			token = hash
+		if (!localToken && hash) {
+			const tokenFromHash = hash
 				.substring(1)
 				.split('&')
-				.find((elem) => elem.startsWith('access_token'))
-				.split('=')[1];
+				.find((elem) => elem.startsWith('access_token'));
+
+			if (tokenFromHash) {
+				localToken = tokenFromHash.split('=')[1];
+				window.localStorage.setItem('token', localToken);
+			}
 
 			window.location.hash = '';
-			window.localStorage.setItem('token', token);
 		}
 
-		setToken(token);
+		setToken(localToken);
 	}, []);
 
 	const logout = () => {
-		setToken('');
+		setToken(null);
 		window.localStorage.removeItem('token');
 	};
 
