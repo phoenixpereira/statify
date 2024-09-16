@@ -12,13 +12,15 @@ To get started, please follow these steps:
 pnpm install
 ```
 
-2. Run the development server.
+2. Copy `.env.local.example` to a new file `.env.local` and set the Spotify api key.
+
+3. Run the development server.
 
 ```bash
 pnpm run dev
 ```
 
-3. Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+4. Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
 ## License
 
