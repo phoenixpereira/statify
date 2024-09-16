@@ -1,7 +1,7 @@
 {
-	"name": "mytimetable",
+	"name": "statify",
 	"private": true,
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"type": "module",
 	"scripts": {
 		"prepare": "simple-git-hooks",

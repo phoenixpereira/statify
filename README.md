@@ -1,6 +1,6 @@
 # Statify
 
-Statify is a website to visualise your Spotify Stats. Created by [Phoenix](https://github.com/phoenixpereira) and [Christian](https://github.com/ChristianDianos) for the 2024 UniSA Open Source Community Code Jam.
+Statify is a website to visualise your Spotify Stats. Created by [Phoenix Pereira](https://github.com/phoenixpereira) and [Christian Dianos](https://github.com/ChristianDianos) for the 2024 UniSA Open Source Community Code Jam.
 
 ## Getting Started
 
