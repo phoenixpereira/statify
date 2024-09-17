@@ -11,11 +11,7 @@ export default function GetRecentArtist() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.items && data.items.length > 0) {
-					setRecentArtist(data.artists.items[0].name);
-				} else {
-					setRecentArtist('Not Enough Data');
-				}
+				setRecentArtist(data.artists.items[0].name);
 				console.log(data);
 			})
 			.catch((error) => console.log(error));

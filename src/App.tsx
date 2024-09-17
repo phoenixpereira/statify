@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 
+import AcousticDistAnalysis from './components/AcousticDist';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import Profile from './components/Profile';
 import RecentSong from './components/RecentSong';
@@ -46,6 +47,7 @@ export default function App() {
 			) : (
 				<>
 					<Profile />
+					<AcousticDistAnalysis />
 					<Top1Songs />
 					<RecentArtist />
 					<RecentSong />
