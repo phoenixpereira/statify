@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, ConfigProvider, Space } from 'antd';
 import { useEffect, useState } from 'react';
 
 import RecentArtist from './components/MostRecentFollowedArtist';
@@ -37,23 +37,46 @@ export default function App() {
 	};
 
 	return (
-		<div className="App">
-			<h1>Hello World!</h1>
-			{!token ? (
-				<Button type="primary" href={loginUrl}>
-					Log in to Spotify
-				</Button>
-			) : (
-				<>
-					<Profile />
-					<Top1Songs />
-					<RecentArtist />
-					<RecentSong />
-					<Button type="primary" onClick={logout}>
-						Logout
-					</Button>
-				</>
-			)}
-		</div>
+		<ConfigProvider
+			theme={{
+				token: {
+					colorPrimary: '#475C7A',
+				},
+			}}
+		>
+			<div className="min-h-screen bg-white">
+				<div className="container mx-auto px-4 py-8">
+					<h1 className="mb-8 text-center text-3xl font-bold">Statify</h1>
+
+					{!token ? (
+						<div className="flex justify-center">
+							<Button type="primary" href={loginUrl}>
+								Log in to Spotify
+							</Button>
+						</div>
+					) : (
+						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<Profile />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<Top1Songs />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<RecentArtist />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<RecentSong />
+							</div>
+							<div className="col-span-1 mt-4 flex justify-center lg:col-span-2">
+								<Button type="primary" onClick={logout}>
+									Logout
+								</Button>
+							</div>
+						</div>
+					)}
+				</div>
+			</div>
+		</ConfigProvider>
 	);
 }
