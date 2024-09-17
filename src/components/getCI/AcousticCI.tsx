@@ -1,5 +1,5 @@
-import { calculateConfidenceInterval } from '../utils/GetCI';
-import GetAcousticDist from './getdistribution/GetAcousticDist';
+import { calculateConfidenceInterval } from '../../utils/GetCI';
+import GetAcousticDist from '../getdistribution/GetAcousticDist';
 
 export default function AcousticDistAnalysis() {
 	const [lowerBound, mean, upperBound] =
@@ -7,7 +7,7 @@ export default function AcousticDistAnalysis() {
 
 	return (
 		<div>
-			<h2>Acousticness Analysis</h2>
+			<b>Acousticness Analysis</b>
 			<p>
 				95% Confidence Interval: [{lowerBound}, {mean}, {upperBound}]
 			</p>

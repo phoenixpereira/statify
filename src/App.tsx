@@ -1,11 +1,16 @@
 import { Button } from 'antd';
 import { useEffect, useState } from 'react';
 
-import AcousticDistAnalysis from './components/AcousticDist';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import Profile from './components/Profile';
 import RecentSong from './components/RecentSong';
-import Top1Songs from './components/Top3Songs';
+import GetTopSong from './components/TopSong';
+import AcousticDistAnalysis from './components/getCI/AcousticCI';
+import DanceDistAnalysis from './components/getCI/DanceabilityCI';
+import DurationDistAnalysis from './components/getCI/DurationCI';
+import EnergyDistAnalysis from './components/getCI/EnergyCI';
+import ModeFrequencyAnalysis from './components/getCI/ModeFrequency';
+import TempoDistAnalysis from './components/getCI/TempoCI';
 import { loginUrl } from './spotify';
 
 export default function App() {
@@ -48,7 +53,12 @@ export default function App() {
 				<>
 					<Profile />
 					<AcousticDistAnalysis />
-					<Top1Songs />
+					<DanceDistAnalysis />
+					<DurationDistAnalysis />
+					<EnergyDistAnalysis />
+					<ModeFrequencyAnalysis />
+					<TempoDistAnalysis />
+					<GetTopSong />
 					<RecentArtist />
 					<RecentSong />
 					<Button type="primary" onClick={logout}>

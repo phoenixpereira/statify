@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-export default function GetTop1Songs() {
-	const [top1Songs, setTop1Songs] = useState(String);
+export default function GetTopSong() {
+	const [topSong, setTopSong] = useState(String);
 	useEffect(() => {
 		fetch('https://api.spotify.com/v1/me/top/tracks?limit=1', {
 			method: 'GET',
@@ -12,9 +12,9 @@ export default function GetTop1Songs() {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.items && data.items.length > 0) {
-					setTop1Songs(data.items[0].name);
+					setTopSong(data.items[0].name);
 				} else {
-					setTop1Songs('Not Enough Data');
+					setTopSong('Not Enough Data');
 				}
 				console.log(data);
 			})
@@ -24,7 +24,7 @@ export default function GetTop1Songs() {
 		<div>
 			{
 				<h2>
-					Top Song: <b>{top1Songs}</b>
+					Top Song: <b>{topSong}</b>
 				</h2>
 			}
 		</div>
