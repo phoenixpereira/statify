@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import GetTop100 from './GetTop100';
+import GetTop100 from '../GetTop100';
 
 export default function GetAcousticDist() {
-	const [distAcoustic, setDistAcoustic] = useState([]);
+	const [dist, setDist] = useState([]);
 	const songIds = GetTop100();
 	const songIdsString = songIds.join(',');
 	useEffect(() => {
@@ -15,14 +15,14 @@ export default function GetAcousticDist() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				const distAcoustic = data.map(
+				const dist = data.map(
 					(audio_features: { acousticness: any }) =>
 						audio_features.acousticness,
 				);
-				setDistAcoustic(distAcoustic);
+				setDist(dist);
 				console.log(data);
 			})
 			.catch((error) => console.log(error));
 	}, []);
-	return distAcoustic;
+	return dist;
 }
