@@ -24,8 +24,12 @@ const parseTokenFromHash = (hash: string): string | null => {
 };
 
 export default function App() {
+	interface ProfileData {
+		display_name: string;
+	}
+
 	const [token, setToken] = useState<string | null>(null);
-	const [profile, setProfile] = useState<any>(null);
+	const [profile, setProfile] = useState<ProfileData | null>(null);
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -46,7 +50,7 @@ export default function App() {
 	useEffect(() => {
 		if (token) {
 			const fetchProfile = async () => {
-				const profileData = await getProfileData(token);
+				const profileData = await getProfileData();
 				setProfile(profileData);
 			};
 
@@ -88,11 +92,11 @@ export default function App() {
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
 							{[
 								AcousticDistAnalysis,
-								DanceDistAnalysis,
-								DurationDistAnalysis,
-								EnergyDistAnalysis,
-								ModeFrequencyAnalysis,
-								TempoDistAnalysis,
+								// DanceDistAnalysis,
+								// DurationDistAnalysis,
+								// EnergyDistAnalysis,
+								// ModeFrequencyAnalysis,
+								// TempoDistAnalysis,
 								GetTopSong,
 								RecentArtist,
 								RecentSong,

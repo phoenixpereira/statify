@@ -1,6 +1,8 @@
 const API_BASE_URL = 'https://api.spotify.com/v1/';
 
-export const fetchFromSpotify = async (endpoint: string, token: string) => {
+export const fetchFromSpotify = async (endpoint: string) => {
+	const token = window.localStorage.getItem('token') || '';
+
 	try {
 		const response = await fetch(`${API_BASE_URL}${endpoint}`, {
 			method: 'GET',

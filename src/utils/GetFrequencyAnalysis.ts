@@ -1,27 +1,30 @@
-export function getFrequencyAnalysis(data: any[]) {
-	const frequencyMap: { [key: number]: number } = {};
+export function getFrequencyAnalysis(
+	data: number[],
+): [number | null, number | null] {
+	const frequencyMap: { [key: string]: number } = {};
 
 	data.forEach((item) => {
 		frequencyMap[item] = (frequencyMap[item] || 0) + 1;
 	});
 
-	let leastFrequentValue: any = null;
+	let leastFrequentValue: number | null = null;
 	let leastFrequency = Infinity;
 
-	for (const key in frequencyMap) {
-		if (frequencyMap[key] < leastFrequency) {
-			leastFrequency = frequencyMap[key];
-			leastFrequentValue = key;
-		}
-	}
-
-	let mostFrequentValue: any = null;
+	let mostFrequentValue: number | null = null;
 	let mostFrequency = -Infinity;
 
 	for (const key in frequencyMap) {
-		if (frequencyMap[key] > mostFrequency) {
-			mostFrequency = frequencyMap[key];
-			mostFrequentValue = key;
+		const keyAsNumber = Number(key);
+		const frequency = frequencyMap[key];
+
+		if (frequency < leastFrequency) {
+			leastFrequency = frequency;
+			leastFrequentValue = keyAsNumber;
+		}
+
+		if (frequency > mostFrequency) {
+			mostFrequency = frequency;
+			mostFrequentValue = keyAsNumber;
 		}
 	}
 

@@ -1,4 +1,3 @@
-// Header.tsx
 import { Button, Space } from 'antd';
 
 interface HeaderProps {

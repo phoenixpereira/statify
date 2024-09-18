@@ -1,16 +1,20 @@
+import { getAcousticDist } from '../../api/acoustic-dist/route';
+import useTop100 from '../../hooks/useTop100';
 import { calculateConfidenceInterval } from '../../utils/GetCI';
-import GetAcousticDist from '../getdistribution/GetAcousticDist';
+import Analysis from './Analysis';
 
 export default function AcousticDistAnalysis() {
-	const [lowerBound, mean, upperBound] =
-		calculateConfidenceInterval(GetAcousticDist());
+	const { top100: songIds } = useTop100();
+
+	const fetchAcousticDist = async () => {
+		return await getAcousticDist(songIds);
+	};
 
 	return (
-		<div>
-			<b>Acousticness Analysis</b>
-			<p>
-				95% Confidence Interval: [{lowerBound}, {mean}, {upperBound}]
-			</p>
-		</div>
+		<Analysis
+			title="Acousticness Analysis"
+			fetchData={fetchAcousticDist}
+			calculateInterval={calculateConfidenceInterval}
+		/>
 	);
 }
