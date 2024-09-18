@@ -34,6 +34,7 @@ export default function App() {
 			if (tokenFromHash) {
 				localToken = tokenFromHash;
 				window.localStorage.setItem('token', localToken);
+				window.location.hash = '';
 			}
 		}
 
