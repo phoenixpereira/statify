@@ -1,5 +1,5 @@
 import CI from '../CI';
 
-export default function AcousticDistAnalysis() {
+export default function AcousticAnalysis() {
 	return <CI title="Acousticness Analysis" />;
 }

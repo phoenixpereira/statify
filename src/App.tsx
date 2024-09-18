@@ -6,12 +6,12 @@ import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
-import AcousticDistAnalysis from './components/getCI/Acoustic';
-import DanceDistAnalysis from './components/getCI/DanceabilityCI';
-import DurationDistAnalysis from './components/getCI/DurationCI';
-import EnergyDistAnalysis from './components/getCI/EnergyCI';
-import ModeFrequencyAnalysis from './components/getCI/ModeFrequency';
-import TempoDistAnalysis from './components/getCI/TempoCI';
+import AcousticAnalysis from './components/attributes/Acoustic';
+import DanceDistAnalysis from './components/attributes/DanceabilityCI';
+import DurationDistAnalysis from './components/attributes/DurationCI';
+import EnergyDistAnalysis from './components/attributes/EnergyCI';
+import ModeFrequencyAnalysis from './components/attributes/ModeFrequency';
+import TempoDistAnalysis from './components/attributes/TempoCI';
 import { loginUrl } from './spotify';
 
 const parseTokenFromHash = (hash: string): string | null => {
@@ -91,7 +91,7 @@ export default function App() {
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
 							{[
-								AcousticDistAnalysis,
+								AcousticAnalysis,
 								// DanceDistAnalysis,
 								// DurationDistAnalysis,
 								// EnergyDistAnalysis,
