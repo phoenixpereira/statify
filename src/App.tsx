@@ -6,7 +6,7 @@ import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
-import AcousticDistAnalysis from './components/getCI/AcousticCI';
+import AcousticDistAnalysis from './components/getCI/Acoustic';
 import DanceDistAnalysis from './components/getCI/DanceabilityCI';
 import DurationDistAnalysis from './components/getCI/DurationCI';
 import EnergyDistAnalysis from './components/getCI/EnergyCI';

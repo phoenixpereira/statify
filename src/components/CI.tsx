@@ -1,25 +1,29 @@
 import { useState, useEffect } from 'react';
 
-interface AnalysisProps {
-	fetchData: () => Promise<number[]>;
-	calculateInterval: (data: number[]) => number[];
+import { getAcousticDist } from '../api/acoustic-dist/route';
+import useTop100 from '../hooks/useTop100';
+import { calculateConfidenceInterval } from '../utils/GetCI';
+
+interface CIProps {
 	title: string;
 }
 
-export default function Analysis({
-	fetchData,
-	calculateInterval,
-	title,
-}: AnalysisProps) {
+export default function Analysis({ title }: CIProps) {
 	const [confidenceInterval, setConfidenceInterval] = useState<
 		[number, number, number] | null
 	>(null);
+	const { top100: songIds } = useTop100();
+
+	const fetchData = async () => {
+		return await getAcousticDist(songIds);
+	};
 
 	useEffect(() => {
 		const fetchDataAndCalculate = async () => {
 			try {
 				const data = await fetchData();
-				const interval = data.length > 0 ? calculateInterval(data) : null;
+				const interval =
+					data.length > 0 ? calculateConfidenceInterval(data) : null;
 				setConfidenceInterval(interval as [number, number, number] | null);
 			} catch (err) {
 				console.error('Error fetching data:', err);
@@ -28,7 +32,7 @@ export default function Analysis({
 		};
 
 		fetchDataAndCalculate();
-	}, [fetchData, calculateInterval]);
+	}, [fetchData, calculateConfidenceInterval]);
 
 	return (
 		<div>
