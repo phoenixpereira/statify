@@ -65,7 +65,25 @@ export default function App() {
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
-								<Top1Songs />
+								<AcousticDistAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<DanceDistAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<DurationDistAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<EnergyDistAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<ModeFrequencyAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<TempoDistAnalysis />
+							</div>
+							<div className="rounded-lg bg-mauve p-6 shadow-md">
+								<GetTopSong />
 							</div>
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
 								<RecentArtist />
@@ -73,16 +91,6 @@ export default function App() {
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
 								<RecentSong />
 							</div>
-              <Profile />
-					    <AcousticDistAnalysis />
-					    <DanceDistAnalysis />
-					    <DurationDistAnalysis />
-					    <EnergyDistAnalysis />
-					    <ModeFrequencyAnalysis />
-					    <TempoDistAnalysis />
-					    <GetTopSong />
-					    <RecentArtist />
-					    <RecentSong />
 						</div>
 					)}
 				</div>
