@@ -1,6 +1,7 @@
 import { Button, ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 
+import { getProfileData } from './api/profile/route';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
@@ -24,6 +25,7 @@ const parseTokenFromHash = (hash: string): string | null => {
 
 export default function App() {
 	const [token, setToken] = useState<string | null>(null);
+	const [profile, setProfile] = useState<any>(null);
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -40,6 +42,17 @@ export default function App() {
 
 		setToken(localToken);
 	}, []);
+
+	useEffect(() => {
+		if (token) {
+			const fetchProfile = async () => {
+				const profileData = await getProfileData(token);
+				setProfile(profileData);
+			};
+
+			fetchProfile();
+		}
+	}, [token]);
 
 	const logout = () => {
 		setToken(null);
@@ -60,7 +73,7 @@ export default function App() {
 			<div className="min-h-screen bg-white">
 				<div className="container mx-auto px-4 py-8">
 					<Header
-						userName={undefined}
+						userName={profile?.display_name || 'Guest'}
 						onLogout={logout}
 						loggedIn={isLoggedIn}
 					/>
