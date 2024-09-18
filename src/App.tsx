@@ -1,14 +1,15 @@
-import { Button, ConfigProvider, Space } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 
+import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
-import Profile from './components/Profile';
 import RecentSong from './components/RecentSong';
 import Top1Songs from './components/Top3Songs';
 import { loginUrl } from './spotify';
 
 export default function App() {
 	const [token, setToken] = useState<string | null>(null);
+	const [displayName] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -40,13 +41,14 @@ export default function App() {
 		<ConfigProvider
 			theme={{
 				token: {
-					colorPrimary: '#475C7A',
+					colorPrimary: '#FCBB6D',
+					colorTextLightSolid: '#000000',
 				},
 			}}
 		>
 			<div className="min-h-screen bg-white">
 				<div className="container mx-auto px-4 py-8">
-					<h1 className="mb-8 text-center text-3xl font-bold">Statify</h1>
+					<Header userName={displayName} onLogout={logout} loggedIn={!!token} />
 
 					{!token ? (
 						<div className="flex justify-center">
@@ -57,9 +59,6 @@ export default function App() {
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
-								<Profile />
-							</div>
-							<div className="rounded-lg bg-mauve p-6 shadow-md">
 								<Top1Songs />
 							</div>
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
@@ -67,11 +66,6 @@ export default function App() {
 							</div>
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
 								<RecentSong />
-							</div>
-							<div className="col-span-1 mt-4 flex justify-center lg:col-span-2">
-								<Button type="primary" onClick={logout}>
-									Logout
-								</Button>
 							</div>
 						</div>
 					)}
