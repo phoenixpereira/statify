@@ -1,16 +1,17 @@
 import { Button, ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 
+import { getProfileData } from './api/profile/route';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
-import AcousticDistAnalysis from './components/getCI/AcousticCI';
-import DanceDistAnalysis from './components/getCI/DanceabilityCI';
-import DurationDistAnalysis from './components/getCI/DurationCI';
-import EnergyDistAnalysis from './components/getCI/EnergyCI';
-import ModeFrequencyAnalysis from './components/getCI/ModeFrequency';
-import TempoDistAnalysis from './components/getCI/TempoCI';
+import AcousticAnalysis from './components/attributes/Acoustic';
+import DanceDistAnalysis from './components/attributes/DanceabilityCI';
+import DurationDistAnalysis from './components/attributes/DurationCI';
+import EnergyDistAnalysis from './components/attributes/EnergyCI';
+import ModeFrequencyAnalysis from './components/attributes/ModeFrequency';
+import TempoDistAnalysis from './components/attributes/TempoCI';
 import { loginUrl } from './spotify';
 
 const parseTokenFromHash = (hash: string): string | null => {
@@ -23,7 +24,12 @@ const parseTokenFromHash = (hash: string): string | null => {
 };
 
 export default function App() {
+	interface ProfileData {
+		display_name: string;
+	}
+
 	const [token, setToken] = useState<string | null>(null);
+	const [profile, setProfile] = useState<ProfileData | null>(null);
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -40,6 +46,17 @@ export default function App() {
 
 		setToken(localToken);
 	}, []);
+
+	useEffect(() => {
+		if (token) {
+			const fetchProfile = async () => {
+				const profileData = await getProfileData();
+				setProfile(profileData);
+			};
+
+			fetchProfile();
+		}
+	}, [token]);
 
 	const logout = () => {
 		setToken(null);
@@ -60,7 +77,7 @@ export default function App() {
 			<div className="min-h-screen bg-white">
 				<div className="container mx-auto px-4 py-8">
 					<Header
-						userName={undefined}
+						userName={profile?.display_name || 'Guest'}
 						onLogout={logout}
 						loggedIn={isLoggedIn}
 					/>
@@ -74,12 +91,12 @@ export default function App() {
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
 							{[
-								AcousticDistAnalysis,
-								DanceDistAnalysis,
-								DurationDistAnalysis,
-								EnergyDistAnalysis,
-								ModeFrequencyAnalysis,
-								TempoDistAnalysis,
+								AcousticAnalysis,
+								// DanceDistAnalysis,
+								// DurationDistAnalysis,
+								// EnergyDistAnalysis,
+								// ModeFrequencyAnalysis,
+								// TempoDistAnalysis,
 								GetTopSong,
 								RecentArtist,
 								RecentSong,

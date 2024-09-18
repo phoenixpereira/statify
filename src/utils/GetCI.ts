@@ -1,4 +1,4 @@
-export function calculateConfidenceInterval(data: any[]) {
+export function calculateConfidenceInterval(data: number[]) {
 	const n = data.length;
 	const mean = data.reduce((a, b) => a + b, 0) / n;
 
