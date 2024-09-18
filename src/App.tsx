@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
-import Top1Songs from './components/Top3Songs';
+import GetTopSong from './components/TopSong';
+import AcousticDistAnalysis from './components/getCI/AcousticCI';
+import DanceDistAnalysis from './components/getCI/DanceabilityCI';
+import DurationDistAnalysis from './components/getCI/DurationCI';
+import EnergyDistAnalysis from './components/getCI/EnergyCI';
+import ModeFrequencyAnalysis from './components/getCI/ModeFrequency';
+import TempoDistAnalysis from './components/getCI/TempoCI';
 import { loginUrl } from './spotify';
 
 export default function App() {
@@ -67,6 +73,16 @@ export default function App() {
 							<div className="rounded-lg bg-mauve p-6 shadow-md">
 								<RecentSong />
 							</div>
+              <Profile />
+					    <AcousticDistAnalysis />
+					    <DanceDistAnalysis />
+					    <DurationDistAnalysis />
+					    <EnergyDistAnalysis />
+					    <ModeFrequencyAnalysis />
+					    <TempoDistAnalysis />
+					    <GetTopSong />
+					    <RecentArtist />
+					    <RecentSong />
 						</div>
 					)}
 				</div>
