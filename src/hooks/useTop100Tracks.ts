@@ -2,10 +2,19 @@ import { useState, useEffect } from 'react';
 
 import { fetchFromSpotify } from '../utils/fetcher';
 
+interface Track {
+	trackName: string;
+	trackImage: string;
+	trackRelease: number;
+	trackPopularity: number;
+	trackExplicit: boolean;
+	trackDuration: number;
+	artist: string;
+	spotifyLink: string;
+}
+
 const useTop100Tracks = () => {
-	const [top100Tracks, setTop100Tracks] = useState<
-		[string[], string[], number[], number[], number[], number[]]
-	>([[], [], [], [], [], []]); // Want to return a 'sextuuple' that has trackName, trackImage, trackRelease, trackPopularity, trackExplicit, trackDuration
+	const [top100Tracks, setTop100Tracks] = useState<Track[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -21,56 +30,22 @@ const useTop100Tracks = () => {
 				]);
 
 				if (data1 && data2) {
-					const trackName = [
-						...data1.items.map((track: { name: string }) => track.name),
-						...data2.items.map((track: { name: string }) => track.name),
-					];
+					const combinedData = [...data1.items, ...data2.items];
 
-					const trackImage = [
-						...data1.items.album.map((images: { url: string }) => images.url),
-						...data2.items.album.map((images: { url: string }) => images.url),
-					];
+					const formattedTracks = combinedData.map((track: any) => ({
+						trackName: track.name,
+						trackImage: track.album.images[0]?.url || '',
+						trackRelease: parseInt(track.album.release_date.slice(0, 4), 10),
+						trackPopularity: track.popularity,
+						trackExplicit: track.explicit,
+						trackDuration: track.duration_ms,
+						artist: track.artists
+							.map((artist: { name: string }) => artist.name)
+							.join(', '),
+						spotifyLink: track.external_urls.spotify,
+					}));
 
-					const trackRelease = [
-						...data1.items.map((track: { album: { release_date: string } }) =>
-							parseInt(track.album.release_date.slice(0, 4), 10),
-						),
-						...data2.items.map((track: { album: { release_date: string } }) =>
-							parseInt(track.album.release_date.slice(0, 4), 10),
-						),
-					];
-
-					const trackPopularity = [
-						...data1.items.map(
-							(track: { popularity: string }) => track.popularity,
-						),
-						...data2.items.map(
-							(track: { popularity: string }) => track.popularity,
-						),
-					];
-
-					const trackExplicit = [
-						...data1.items.map((track: { explicit: string }) => track.explicit),
-						...data2.items.map((track: { explicit: string }) => track.explicit),
-					];
-
-					const trackDuration = [
-						...data1.items.map(
-							(track: { duration_ms: string }) => track.duration_ms,
-						),
-						...data2.items.map(
-							(track: { duration_ms: string }) => track.duration_ms,
-						),
-					];
-
-					setTop100Tracks([
-						trackName,
-						trackImage,
-						trackRelease,
-						trackPopularity,
-						trackExplicit,
-						trackDuration,
-					]);
+					setTop100Tracks(formattedTracks);
 				} else {
 					throw new Error('Failed to fetch top tracks');
 				}
