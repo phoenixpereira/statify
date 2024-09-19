@@ -6,12 +6,6 @@ import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
-import AcousticAnalysis from './components/attributes/Acoustic';
-import DanceDistAnalysis from './components/attributes/DanceabilityCI';
-import DurationDistAnalysis from './components/attributes/DurationCI';
-import EnergyDistAnalysis from './components/attributes/EnergyCI';
-import ModeFrequencyAnalysis from './components/attributes/ModeFrequency';
-import TempoDistAnalysis from './components/attributes/TempoCI';
 import { loginUrl } from './spotify';
 
 const parseTokenFromHash = (hash: string): string | null => {
@@ -90,21 +84,16 @@ export default function App() {
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
-							{[
-								AcousticAnalysis,
-								// DanceDistAnalysis,
-								// DurationDistAnalysis,
-								// EnergyDistAnalysis,
-								// ModeFrequencyAnalysis,
-								// TempoDistAnalysis,
-								GetTopSong,
-								RecentArtist,
-								RecentSong,
-							].map((Component, index) => (
-								<div key={index} className="rounded-lg bg-mauve p-6 shadow-md">
-									<Component />
-								</div>
-							))}
+							{[GetTopSong, RecentArtist, RecentSong].map(
+								(Component, index) => (
+									<div
+										key={index}
+										className="rounded-lg bg-mauve p-6 shadow-md"
+									>
+										<Component />
+									</div>
+								),
+							)}
 						</div>
 					)}
 				</div>
