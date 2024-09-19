@@ -7,7 +7,7 @@ interface Track {
 	trackImage: string;
 	trackRelease: number;
 	trackPopularity: number;
-	trackExplicit: boolean;
+	trackExplicit: number;
 	trackDuration: number;
 	artist: string;
 	spotifyLink: string;

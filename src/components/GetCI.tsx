@@ -17,7 +17,7 @@ export default function Analysis({ name, array }: CIProps) {
 			try {
 				const interval =
 					array.length > 0 ? calculateConfidenceInterval(array) : null;
-				setConfidenceInterval(interval as [number, number, number] | null);
+				setConfidenceInterval(interval as [number, number, number]);
 			} catch (err) {
 				console.error('Error calculating confidence interval:', err);
 				setConfidenceInterval(null);
