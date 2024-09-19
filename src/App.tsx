@@ -5,7 +5,7 @@ import { getProfileData } from './api/profile/route';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
-import GetTopSong from './components/TopSong';
+import GetTopSongs from './components/TopSongs';
 import { loginUrl } from './spotify';
 
 const parseTokenFromHash = (hash: string): string | null => {
@@ -84,11 +84,11 @@ export default function App() {
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
-							{[GetTopSong, RecentArtist, RecentSong].map(
+							{[GetTopSongs, RecentArtist, RecentSong].map(
 								(Component, index) => (
 									<div
 										key={index}
-										className="rounded-lg bg-mauve p-6 shadow-md"
+										className="rounded-lg bg-slate p-6 shadow-md"
 									>
 										<Component />
 									</div>
