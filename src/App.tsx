@@ -88,7 +88,7 @@ export default function App() {
 								(Component, index) => (
 									<div
 										key={index}
-										className="rounded-lg bg-slate p-6 shadow-md"
+										className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
 									>
 										<Component />
 									</div>

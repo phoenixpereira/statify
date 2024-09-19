@@ -29,34 +29,34 @@ export default function GetTopSongs() {
 	}, [top100Tracks]);
 
 	return (
-		<div className="p-6">
+		<div className="p-1 lg:p-6">
 			<h2 className="mb-6 text-2xl font-bold">Top 100 Songs</h2>
 			<div className="overflow-hidden rounded-lg shadow-md">
 				<table className="w-full table-auto border-collapse text-left">
 					<thead>
-						<tr className="bg-steel text-white">
-							<th className="p-4">Image</th>
-							<th className="p-4">Name</th>
-							<th className="p-4">Artist</th>
-							<th className="p-4">Spotify Link</th>
+						<tr className="lg:text-md bg-steel text-sm text-white">
+							<th className="p-1 lg:p-4">Image</th>
+							<th className="p-1 lg:p-4">Name</th>
+							<th className="p-1 lg:p-4">Artist</th>
+							<th className="p-1 lg:p-4">Spotify Link</th>
 						</tr>
 					</thead>
 					<tbody className="bg-gray-100">
 						{topSongs.map((song) => (
 							<tr
 								key={song.key}
-								className="bg-rose transition-colors hover:bg-apricot"
+								className="lg:text-md bg-rose text-sm transition-colors hover:bg-apricot"
 							>
-								<td className="p-4">
+								<td className="p-1 lg:p-4">
 									<img
 										src={song.image}
 										alt={`${song.name} cover`}
 										className="h-12 w-12 rounded-lg"
 									/>
 								</td>
-								<td className="p-4">{song.name}</td>
-								<td className="p-4">{song.artist}</td>
-								<td className="p-4">
+								<td className="p-1 lg:p-4">{song.name}</td>
+								<td className="p-1 lg:p-4">{song.artist}</td>
+								<td className="p-1 lg:p-4">
 									<a
 										href={song.url}
 										target="_blank"
