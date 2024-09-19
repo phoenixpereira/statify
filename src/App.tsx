@@ -2,10 +2,12 @@ import { Button, ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { getProfileData } from './api/profile/route';
+import Analysis from './components/GetCI';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
+import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
 
 const parseTokenFromHash = (hash: string): string | null => {
@@ -24,6 +26,8 @@ export default function App() {
 
 	const [token, setToken] = useState<string | null>(null);
 	const [profile, setProfile] = useState<ProfileData | null>(null);
+
+	const trackData = useTop100Tracks();
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -59,6 +63,9 @@ export default function App() {
 
 	const isLoggedIn = !!token;
 
+	const trackPopularityArray = trackData.top100Tracks.map(
+		(track) => track.trackPopularity,
+	);
 	return (
 		<ConfigProvider
 			theme={{
@@ -97,6 +104,7 @@ export default function App() {
 						</div>
 					)}
 				</div>
+				<Analysis name="Track Data Analysis" array={trackPopularityArray} />
 			</div>
 		</ConfigProvider>
 	);
