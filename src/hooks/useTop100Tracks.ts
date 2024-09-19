@@ -4,7 +4,7 @@ import { fetchFromSpotify } from '../utils/fetcher';
 
 const useTop100Tracks = () => {
 	const [top100Tracks, setTop100Tracks] = useState<
-		[string[], string[], string[], string[], string[], string[]]
+		[string[], string[], number[], number[], number[], number[]]
 	>([[], [], [], [], [], []]); // Want to return a 'sextuuple' that has trackName, trackImage, trackRelease, trackPopularity, trackExplicit, trackDuration
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
@@ -32,11 +32,11 @@ const useTop100Tracks = () => {
 					];
 
 					const trackRelease = [
-						...data1.items.map(
-							(release_date: { url: string }) => release_date.url,
+						...data1.items.map((track: { album: { release_date: string } }) =>
+							parseInt(track.album.release_date.slice(0, 4), 10),
 						),
-						...data2.items.map(
-							(release_date: { url: string }) => release_date.url,
+						...data2.items.map((track: { album: { release_date: string } }) =>
+							parseInt(track.album.release_date.slice(0, 4), 10),
 						),
 					];
 
