@@ -47,7 +47,6 @@ export default function ReleaseAnalysis({ trackData }: PAProps) {
 				const frequencyMap: { [key: string]: number } = {};
 				releaseYears.forEach((year) => {
 					const rangeStart = Math.floor(year / 10) * 10; // Group by decades
-					const rangeEnd = rangeStart + 9; // 10-year range
 					const rangeKey = `${rangeStart}s`; // Update range format to include "s"
 					frequencyMap[rangeKey] = (frequencyMap[rangeKey] || 0) + 1;
 				});

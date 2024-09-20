@@ -21,16 +21,13 @@ export default function GetRecommendations({ trackData }: PAProps) {
 
 		try {
 			const firstThree = trackData.slice(0, 5).map((track) => track.trackID);
-			console.log(firstThree);
 
 			const recommendations = await fetchFromSpotify(
 				`recommendations?seed_tracks=${firstThree.join(',')}`,
 			);
-			console.log(recommendations);
 			const trackIDs = recommendations.tracks.map(
 				(track: { id: string }) => track.id,
 			);
-			console.log(trackIDs);
 
 			const [userDetails] = await Promise.all([fetchFromSpotify('me')]);
 			const userID = userDetails.id;

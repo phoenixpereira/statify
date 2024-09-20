@@ -49,8 +49,6 @@ export async function createPlaylist(userID: string, trackIDs: string[]) {
 				`Failed to add tracks to playlist: ${errorResponse.error.message}`,
 			);
 		}
-
-		console.log('Playlist created and tracks added successfully!');
 	} catch (err) {
 		console.error('Error creating playlist:', err);
 	}
