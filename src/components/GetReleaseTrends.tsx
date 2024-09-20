@@ -27,7 +27,7 @@ export default function ReleaseAnalysis({ trackData }: PAProps) {
 		null,
 	);
 	const [releaseData, setReleaseData] = useState<
-		{ range: string; count: number }[]
+		{ range: string; Count: number }[]
 	>([]);
 	const [lineString, setLineString] = useState<number | undefined>(undefined); // Change to number
 
@@ -54,7 +54,7 @@ export default function ReleaseAnalysis({ trackData }: PAProps) {
 
 				const data = Object.keys(frequencyMap).map((key) => ({
 					range: key,
-					count: frequencyMap[key],
+					Count: frequencyMap[key],
 				}));
 
 				data.sort((a, b) => {
@@ -113,8 +113,8 @@ export default function ReleaseAnalysis({ trackData }: PAProps) {
 							fill="#F7F4EF"
 						/>
 					</YAxis>
-					<Tooltip />
-					<Bar dataKey="count" fill="#FCBB6D" />
+					<Tooltip wrapperStyle={{ color: 'black' }} />
+					<Bar dataKey="Count" fill="#FCBB6D" />
 					{lineString && (
 						<ReferenceLine
 							x={`${lineString}s`}
