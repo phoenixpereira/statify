@@ -2,47 +2,44 @@ import { useState, useEffect } from 'react';
 import { FaSpotify } from 'react-icons/fa';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-import useTop100Tracks from '../hooks/useTop100Tracks';
+import useTop50Artists from '../hooks/useTop50Artists';
 
-interface Song {
+interface Artist {
 	key: string;
 	name: string;
-	artist: string;
 	image: string;
 	url: string;
 }
 
-export default function GetTopSongs() {
-	const [topSongs, setTopSongs] = useState<Song[]>([]);
+export default function GetTopArtists() {
+	const [topArtists, setTopArtists] = useState<Artist[]>([]);
 	const [isCollapsed, setIsCollapsed] = useState(true);
-	const { top100Tracks } = useTop100Tracks();
-
-	console.log('top100Tracks', top100Tracks);
+	const { top50Artists } = useTop50Artists();
 
 	useEffect(() => {
-		if (top100Tracks.length > 0) {
-			const formattedSongs = top100Tracks.map((track, index) => ({
+		if (top50Artists.length > 0) {
+			const formattedArtists = top50Artists.map((artist, index) => ({
 				key: String(index + 1),
-				name: track.trackName,
-				artist: track.artist,
-				image: track.trackImage,
-				url: track.spotifyLink,
+				name: artist.artistName,
+				image: artist.artistImage,
+				url: artist.spotifyLink,
 			}));
-			setTopSongs(formattedSongs);
+
+			setTopArtists(formattedArtists);
 		}
-	}, [top100Tracks]);
+	}, [top50Artists]);
 
 	const toggleCollapse = () => {
 		setIsCollapsed(!isCollapsed);
 	};
 
 	// Show only top 10 when collapsed, otherwise show all
-	const displayedSongs = isCollapsed ? topSongs.slice(0, 10) : topSongs;
+	const displayedArtists = isCollapsed ? topArtists.slice(0, 10) : topArtists;
 
 	return (
 		<div className="p-1 lg:p-6">
 			<div className="mb-6 flex items-center justify-between">
-				<h2 className="text-2xl font-bold">Top 100 Songs</h2>
+				<h2 className="text-2xl font-bold">Top 50 Artists</h2>
 				<button
 					onClick={toggleCollapse}
 					className="flex items-center text-lg text-white hover:underline"
@@ -65,29 +62,27 @@ export default function GetTopSongs() {
 							<th className="p-1 lg:p-4">#</th>
 							<th className="p-1 lg:p-4">Image</th>
 							<th className="p-1 lg:p-4">Name</th>
-							<th className="p-1 lg:p-4">Artist</th>
 							<th className="p-1 lg:p-4">Spotify Link</th>
 						</tr>
 					</thead>
 					<tbody>
-						{displayedSongs.map((song, index) => (
+						{displayedArtists.map((artist, index) => (
 							<tr
-								key={song.key}
+								key={artist.key}
 								className="lg:text-md bg-rose text-sm transition-colors hover:bg-apricot"
 							>
 								<td className="p-1 font-bold lg:p-4">{index + 1}</td>
 								<td className="p-1 lg:p-4">
 									<img
-										src={song.image}
-										alt={`${song.name} cover`}
+										src={artist.image}
+										alt={`${artist.name} cover`}
 										className="h-12 w-12 rounded-lg"
 									/>
 								</td>
-								<td className="p-1 lg:p-4">{song.name}</td>
-								<td className="p-1 lg:p-4">{song.artist}</td>
+								<td className="p-1 lg:p-4">{artist.name}</td>
 								<td className="p-1 lg:p-4">
 									<a
-										href={song.url}
+										href={artist.url}
 										target="_blank"
 										rel="noopener noreferrer"
 										className="text-white hover:underline"

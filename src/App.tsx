@@ -5,6 +5,7 @@ import { getProfileData } from './api/profile/route';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
+import GetTopArtists from './components/TopArtists';
 import GetTopSongs from './components/TopSongs';
 import { loginUrl } from './spotify';
 
@@ -84,7 +85,7 @@ export default function App() {
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white">
-							{[GetTopSongs, RecentArtist, RecentSong].map(
+							{[GetTopSongs, GetTopArtists, RecentArtist, RecentSong].map(
 								(Component, index) => (
 									<div
 										key={index}
