@@ -4,7 +4,7 @@ import { calculateConfidenceInterval } from '../utils/CI';
 
 interface CIProps {
 	array: number[];
-	name: String;
+	name: string;
 }
 
 export default function Analysis({ name, array }: CIProps) {

@@ -7,8 +7,8 @@ interface PAProps {
 }
 
 export default function ReleaseAnalysis({ array }: PAProps) {
-	const [analysisResult, setAnalysisResult] = useState<String | null>(null);
-	const [analysisResultRaw, setAnalysisResultRaw] = useState<String | null>(
+	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
+	const [analysisResultRaw, setAnalysisResultRaw] = useState<string | null>(
 		null,
 	);
 

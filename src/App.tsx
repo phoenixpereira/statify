@@ -1,9 +1,7 @@
 import { Button, ConfigProvider } from 'antd';
-import { calc } from 'antd/es/theme/internal';
 import { useEffect, useState } from 'react';
 
 import { getProfileData } from './api/profile/route';
-import Analysis from './components/GetCI';
 import DurationAnalysis from './components/GetDurationTrends';
 import ExplicitAnalysis from './components/GetExplicitTrends';
 import PopularityAnalysis from './components/GetPopularityTrends';
@@ -11,10 +9,10 @@ import ReleaseAnalysis from './components/GetReleaseTrends';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
-import GetTopSong from './components/TopSong';
+import GetTopArtists from './components/TopArtists';
+import GetTopSongs from './components/TopSongs';
 import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
-import { calculateConfidenceInterval } from './utils/CI';
 
 const parseTokenFromHash = (hash: string): string | null => {
 	const tokenFromHash = hash
@@ -107,12 +105,12 @@ export default function App() {
 							</Button>
 						</div>
 					) : (
-						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
-							{[GetTopSong, RecentArtist, RecentSong].map(
+						<div className="grid grid-cols-1 gap-8 text-white xl:grid-cols-2">
+							{[GetTopSongs, GetTopArtists, RecentSong, RecentArtist].map(
 								(Component, index) => (
 									<div
 										key={index}
-										className="rounded-lg bg-mauve p-6 shadow-md"
+										className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
 									>
 										<Component />
 									</div>

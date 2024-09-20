@@ -13,7 +13,7 @@ interface Track {
 	spotifyLink: string;
 }
 
-const useTop100Tracks = () => {
+export default function useTop100Tracks() {
 	const [top100Tracks, setTop100Tracks] = useState<Track[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
@@ -61,6 +61,4 @@ const useTop100Tracks = () => {
 	}, []);
 
 	return { top100Tracks, loading, error };
-};
-
-export default useTop100Tracks;
+}

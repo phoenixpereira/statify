@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 
 import { fetchFromSpotify } from '../utils/fetcher';
 
-const useTop50Artists = () => {
-	const [top50Artists, setTop50Artists] = useState<[string[], string[]]>([
-		[],
-		[],
-	]);
+interface Artist {
+	artistName: string;
+	artistImage: string;
+	spotifyLink: string;
+}
+
+export default function useTop50Artists() {
+	const [top50Artists, setTop50Artists] = useState<Artist[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -15,20 +18,16 @@ const useTop50Artists = () => {
 			try {
 				const url1 = 'me/top/artists?limit=50&offset=0'; // Top 1-50
 
-				const [data] = await Promise.all([fetchFromSpotify(url1)]);
+				const data = await Promise.all([fetchFromSpotify(url1)]);
 
 				if (data) {
-					const artistName = [
-						...data.items.map(
-							(artist: { name: string }) => [artist.name] as [string],
-						),
-					];
-					const artistImage = [
-						...data.items.artist.map(
-							(images: { url: string }) => [images.url] as [string],
-						),
-					];
-					setTop50Artists([artistName, artistImage]);
+					const formattedArtists = data[0].items.map((artist: any) => ({
+						artistName: artist.name,
+						artistImage: artist.images[0]?.url || '',
+						spotifyLink: artist.external_urls.spotify,
+					}));
+
+					setTop50Artists(formattedArtists);
 				} else {
 					throw new Error('Failed to fetch top artists');
 				}
@@ -44,6 +43,4 @@ const useTop50Artists = () => {
 	}, []);
 
 	return { top50Artists, loading, error };
-};
-
-export default useTop50Artists;
+}
