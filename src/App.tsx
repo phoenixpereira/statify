@@ -64,7 +64,6 @@ export default function App() {
 
 	const [token, setToken] = useState<string | null>(null);
 	const [profile, setProfile] = useState<ProfileData | null>(null);
-	const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
 	const trackData: TrackData = useTop100Tracks();
 	const artistData: ArtistData = useTop50Artists();
@@ -79,25 +78,17 @@ export default function App() {
 				localToken = tokenFromHash;
 				window.localStorage.setItem('token', localToken);
 				window.location.hash = '';
-				setToken(localToken);
 			}
-		} else {
-			setToken(localToken);
 		}
+
+		setToken(localToken);
 	}, []);
 
 	useEffect(() => {
 		const fetchProfile = async () => {
-			if (!token) return;
-			setLoadingProfile(true);
-			try {
+			if (token) {
 				const profileData = await getProfileData();
 				setProfile(profileData);
-			} catch (error) {
-				console.error('Failed to fetch profile data:', error);
-				setProfile(null);
-			} finally {
-				setLoadingProfile(false);
 			}
 		};
 
@@ -106,7 +97,6 @@ export default function App() {
 
 	const logout = () => {
 		setToken(null);
-		setProfile(null);
 		window.localStorage.removeItem('token');
 	};
 
@@ -137,10 +127,6 @@ export default function App() {
 						>
 							Log in to Spotify
 						</button>
-					</div>
-				) : loadingProfile ? (
-					<div className="flex flex-col items-center justify-center rounded-lg bg-slate p-6 text-white shadow-md">
-						<p>Loading your profile...</p>
 					</div>
 				) : (
 					<div className="grid grid-cols-1 gap-8 text-white xl:grid-cols-2">
