@@ -2,32 +2,30 @@ import { useState, useEffect } from 'react';
 import { FaSpotify } from 'react-icons/fa';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-import useTop50Artists from '../hooks/useTop50Artists';
-
 interface Artist {
 	key: string;
-	name: string;
-	image: string;
-	url: string;
+	artistName: string;
+	artistImage: string;
+	spotifyLink: string;
 }
 
-export default function GetTopArtists() {
+interface GetTopArtistsProps {
+	artistData: Artist[];
+}
+
+export default function GetTopArtists({ artistData }: GetTopArtistsProps) {
 	const [topArtists, setTopArtists] = useState<Artist[]>([]);
 	const [isCollapsed, setIsCollapsed] = useState(true);
-	const { top50Artists } = useTop50Artists();
 
 	useEffect(() => {
-		if (top50Artists.length > 0) {
-			const formattedArtists = top50Artists.map((artist, index) => ({
+		if (artistData.length > 0) {
+			const formattedArtists = artistData.map((artist, index) => ({
+				...artist,
 				key: String(index + 1),
-				name: artist.artistName,
-				image: artist.artistImage,
-				url: artist.spotifyLink,
 			}));
-
 			setTopArtists(formattedArtists);
 		}
-	}, [top50Artists]);
+	}, [artistData]);
 
 	const toggleCollapse = () => {
 		setIsCollapsed(!isCollapsed);
@@ -35,6 +33,8 @@ export default function GetTopArtists() {
 
 	// Show only top 10 when collapsed, otherwise show all
 	const displayedArtists = isCollapsed ? topArtists.slice(0, 10) : topArtists;
+
+	console.log('da', displayedArtists);
 
 	return (
 		<div className="p-1 lg:p-6">
@@ -74,15 +74,15 @@ export default function GetTopArtists() {
 								<td className="p-1 font-bold lg:px-4 lg:py-2">{index + 1}</td>
 								<td className="p-1 lg:px-4 lg:py-2">
 									<img
-										src={artist.image}
-										alt={`${artist.name} cover`}
+										src={artist.artistImage}
+										alt={`${artist.artistName} cover`}
 										className="h-12 w-12 rounded-lg"
 									/>
 								</td>
-								<td className="p-1 lg:px-4 lg:py-2">{artist.name}</td>
+								<td className="p-1 lg:px-4 lg:py-2">{artist.artistName}</td>
 								<td className="p-1 lg:px-4 lg:py-2">
 									<a
-										href={artist.url}
+										href={artist.spotifyLink}
 										target="_blank"
 										rel="noopener noreferrer"
 										className="text-white hover:underline"

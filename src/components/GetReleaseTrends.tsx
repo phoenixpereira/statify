@@ -2,20 +2,26 @@ import { useState, useEffect } from 'react';
 
 import { calculateConfidenceInterval } from '../utils/CI';
 
-interface PAProps {
-	array: number[];
+interface Track {
+	trackRelease: number;
 }
 
-export default function ReleaseAnalysis({ array }: PAProps) {
+interface PAProps {
+	trackData: Track[];
+}
+
+export default function ReleaseAnalysis({ trackData }: PAProps) {
 	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 	const [analysisResultRaw, setAnalysisResultRaw] = useState<string | null>(
 		null,
 	);
 
 	useEffect(() => {
-		const Analysis = async () => {
+		const analysis = async () => {
 			try {
-				const result = calculateConfidenceInterval(array);
+				const releaseYears = trackData.map((track) => track.trackRelease);
+				const result = calculateConfidenceInterval(releaseYears);
+
 				if (result[1] < 1990) {
 					setAnalysisResult('Old');
 				} else {
@@ -29,8 +35,8 @@ export default function ReleaseAnalysis({ array }: PAProps) {
 			}
 		};
 
-		Analysis();
-	}, []);
+		analysis();
+	}, [trackData]);
 
 	return (
 		<div>
@@ -38,12 +44,10 @@ export default function ReleaseAnalysis({ array }: PAProps) {
 			{analysisResult === null ? (
 				<div>Loading...</div>
 			) : (
-				<>
-					<p>
-						You Listen to {analysisResult} Music Your Release Result was:{' '}
-						{analysisResultRaw}
-					</p>
-				</>
+				<p>
+					You listen to {analysisResult} music. Your release year result was:{' '}
+					{analysisResultRaw}
+				</p>
 			)}
 		</div>
 	);
