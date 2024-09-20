@@ -1,9 +1,7 @@
 import { Button, ConfigProvider } from 'antd';
-import { calc } from 'antd/es/theme/internal';
 import { useEffect, useState } from 'react';
 
 import { getProfileData } from './api/profile/route';
-import Analysis from './components/GetCI';
 import DurationAnalysis from './components/GetDurationTrends';
 import ExplicitAnalysis from './components/GetExplicitTrends';
 import PopularityAnalysis from './components/GetPopularityTrends';
@@ -15,7 +13,6 @@ import GetTopArtists from './components/TopArtists';
 import GetTopSongs from './components/TopSongs';
 import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
-import { calculateConfidenceInterval } from './utils/CI';
 
 const parseTokenFromHash = (hash: string): string | null => {
 	const tokenFromHash = hash

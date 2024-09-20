@@ -5,7 +5,7 @@ interface PAProps {
 }
 
 export default function ExplicitAnalysis({ array }: PAProps) {
-	const [analysisResult, setAnalysisResult] = useState<String | null>(null);
+	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 
 	useEffect(() => {
 		const Analysis = async () => {
