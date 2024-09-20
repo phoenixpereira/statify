@@ -2,20 +2,25 @@ import { useState, useEffect } from 'react';
 
 import { calculateConfidenceInterval } from '../utils/CI';
 
-interface PAProps {
-	array: number[];
+interface Track {
+	trackDuration: number;
 }
 
-export default function DurationAnalysis({ array }: PAProps) {
+interface PAProps {
+	trackData: Track[];
+}
+
+export default function DurationAnalysis({ trackData }: PAProps) {
 	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 	const [analysisResultRaw, setAnalysisResultRaw] = useState<string | null>(
 		null,
 	);
 
 	useEffect(() => {
-		const Analysis = async () => {
+		const analysis = async () => {
 			try {
-				const result = calculateConfidenceInterval(array);
+				const durationArray = trackData.map((track) => track.trackDuration);
+				const result = calculateConfidenceInterval(durationArray);
 				if (result[1] < 100000) {
 					setAnalysisResult('Short');
 				} else {
@@ -29,8 +34,8 @@ export default function DurationAnalysis({ array }: PAProps) {
 			}
 		};
 
-		Analysis();
-	}, []);
+		analysis();
+	}, [trackData]);
 
 	return (
 		<div>
@@ -38,12 +43,10 @@ export default function DurationAnalysis({ array }: PAProps) {
 			{analysisResult === null ? (
 				<div>Loading...</div>
 			) : (
-				<>
-					<p>
-						You Listen to {analysisResult} Music Your Duration Result was:{' '}
-						{analysisResultRaw} Seconds
-					</p>
-				</>
+				<p>
+					You listen to {analysisResult} music. Your duration result was:{' '}
+					{analysisResultRaw} seconds.
+				</p>
 			)}
 		</div>
 	);

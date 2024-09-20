@@ -10,7 +10,8 @@ import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopArtists from './components/TopArtists';
-import GetTopSongs from './components/TopSongs';
+import GetTopTracks from './components/TopTracks';
+import useTop50Artists from './hooks/useTop50Artists';
 import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
 
@@ -32,6 +33,7 @@ export default function App() {
 	const [profile, setProfile] = useState<ProfileData | null>(null);
 
 	const trackData = useTop100Tracks();
+	const artistData = useTop50Artists();
 
 	useEffect(() => {
 		const hash = window.location.hash;
@@ -66,10 +68,6 @@ export default function App() {
 	};
 
 	const isLoggedIn = !!token;
-
-	const trackPopularityArray = trackData.top100Tracks.map(
-		(track) => track.trackPopularity,
-	);
 
 	const trackDurationArray = trackData.top100Tracks.map(
 		(track) => track.trackDuration,
@@ -106,24 +104,37 @@ export default function App() {
 						</div>
 					) : (
 						<div className="grid grid-cols-1 gap-8 text-white xl:grid-cols-2">
-							{[GetTopSongs, GetTopArtists, RecentSong, RecentArtist].map(
-								(Component, index) => (
-									<div
-										key={index}
-										className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
-									>
-										<Component />
-									</div>
-								),
-							)}
+							<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
+								<GetTopTracks trackData={trackData.top100Tracks} />
+							</div>
+							<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
+								<GetTopArtists artistData={artistData.top50Artists} />
+							</div>
+
+							{[RecentSong, RecentArtist].map((Component, index) => (
+								<div
+									key={index}
+									className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
+								>
+									<Component />
+								</div>
+							))}
+							{[
+								PopularityAnalysis,
+								DurationAnalysis,
+								ReleaseAnalysis,
+								ExplicitAnalysis,
+							].map((Component, index) => (
+								<div
+									key={index}
+									className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
+								>
+									<Component trackData={trackData.top100Tracks} />
+								</div>
+							))}
 						</div>
 					)}
 				</div>
-
-				<PopularityAnalysis array={trackPopularityArray} />
-				<DurationAnalysis array={trackDurationArray} />
-				<ReleaseAnalysis array={trackReleaseArray} />
-				<ExplicitAnalysis array={trackExplicitArray} />
 			</div>
 		</ConfigProvider>
 	);

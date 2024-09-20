@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react';
 
-interface PAProps {
-	array: number[];
+interface Track {
+	isExplicit: number;
 }
 
-export default function ExplicitAnalysis({ array }: PAProps) {
+interface PAProps {
+	trackData: Track[];
+}
+
+export default function ExplicitAnalysis({ trackData }: PAProps) {
 	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 
 	useEffect(() => {
-		const Analysis = async () => {
+		const analysis = async () => {
 			try {
 				let trueCount = 0;
 				let falseCount = 0;
 
-				// Use forEach to count the occurrences of true and false
-				array.forEach((value) => {
-					if (value == 1) {
+				// Count occurrences of explicit (1) and clean (0)
+				trackData.forEach((track) => {
+					if (track.isExplicit === 1) {
 						trueCount++;
-					} else if (value == 0) {
+					} else if (track.isExplicit === 0) {
 						falseCount++;
 					}
 				});
@@ -34,8 +38,8 @@ export default function ExplicitAnalysis({ array }: PAProps) {
 			}
 		};
 
-		Analysis();
-	}, []);
+		analysis();
+	}, [trackData]);
 
 	return (
 		<div>
@@ -43,9 +47,7 @@ export default function ExplicitAnalysis({ array }: PAProps) {
 			{analysisResult === null ? (
 				<div>Loading...</div>
 			) : (
-				<>
-					<p>You Listen to {analysisResult} Music</p>
-				</>
+				<p>You listen to {analysisResult} music.</p>
 			)}
 		</div>
 	);

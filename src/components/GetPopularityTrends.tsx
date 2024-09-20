@@ -2,20 +2,25 @@ import { useState, useEffect } from 'react';
 
 import { calculateConfidenceInterval } from '../utils/CI';
 
-interface PAProps {
-	array: number[];
+interface Track {
+	trackPopularity: number;
 }
 
-export default function PopularityAnalysis({ array }: PAProps) {
+interface PAProps {
+	trackData: Track[];
+}
+
+export default function PopularityAnalysis({ trackData }: PAProps) {
 	const [analysisResult, setAnalysisResult] = useState<string | null>(null);
 	const [analysisResultRaw, setAnalysisResultRaw] = useState<string | null>(
 		null,
 	);
 
 	useEffect(() => {
-		const Analysis = async () => {
+		const analysis = async () => {
 			try {
-				const result = calculateConfidenceInterval(array);
+				const popularityArray = trackData.map((track) => track.trackPopularity);
+				const result = calculateConfidenceInterval(popularityArray);
 				if (result[1] > 70) {
 					setAnalysisResult('Popular');
 				} else {
@@ -29,8 +34,8 @@ export default function PopularityAnalysis({ array }: PAProps) {
 			}
 		};
 
-		Analysis();
-	}, []);
+		analysis();
+	}, [trackData]);
 
 	return (
 		<div>
@@ -38,12 +43,10 @@ export default function PopularityAnalysis({ array }: PAProps) {
 			{analysisResult === null ? (
 				<div>Loading...</div>
 			) : (
-				<>
-					<p>
-						You Listen to {analysisResult} Music Your Popularity Result was:{' '}
-						{analysisResultRaw}
-					</p>
-				</>
+				<p>
+					You listen to {analysisResult} music. Your popularity result was:{' '}
+					{analysisResultRaw}
+				</p>
 			)}
 		</div>
 	);
