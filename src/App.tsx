@@ -65,9 +65,6 @@ export default function App() {
 	const [token, setToken] = useState<string | null>(null);
 	const [profile, setProfile] = useState<ProfileData | null>(null);
 
-	const trackData: TrackData = useTop100Tracks();
-	const artistData: ArtistData = useTop50Artists();
-
 	useEffect(() => {
 		const hash = window.location.hash;
 		let localToken = window.localStorage.getItem('token');
@@ -101,6 +98,8 @@ export default function App() {
 	};
 
 	const isLoggedIn = !!token;
+	const trackData: TrackData = useTop100Tracks();
+	const artistData: ArtistData = useTop50Artists();
 
 	return (
 		<div className="min-h-screen bg-white">
