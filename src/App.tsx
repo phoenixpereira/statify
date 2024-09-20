@@ -7,7 +7,7 @@ import ExplicitAnalysis from './components/GetExplicitTrends';
 import PopularityAnalysis from './components/GetPopularityTrends';
 import ReleaseAnalysis from './components/GetReleaseTrends';
 import Header from './components/Header';
-import RecentArtist from './components/MostRecentFollowedArtist';
+import RecentArtist from './components/RecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopArtists from './components/TopArtists';
 import GetTopTracks from './components/TopTracks';
@@ -68,16 +68,6 @@ export default function App() {
 	};
 
 	const isLoggedIn = !!token;
-
-	const trackDurationArray = trackData.top100Tracks.map(
-		(track) => track.trackDuration,
-	);
-	const trackReleaseArray = trackData.top100Tracks.map(
-		(track) => track.trackRelease,
-	);
-	const trackExplicitArray = trackData.top100Tracks.map(
-		(track) => track.trackExplicit,
-	);
 
 	return (
 		<ConfigProvider
