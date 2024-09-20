@@ -64,7 +64,7 @@ export default function App() {
 
 	const [token, setToken] = useState<string | null>(null);
 	const [profile, setProfile] = useState<ProfileData | null>(null);
-	const [loadingProfile, setLoadingProfile] = useState<boolean>(true);
+	const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
 	const trackData: TrackData = useTop100Tracks();
 	const artistData: ArtistData = useTop50Artists();
@@ -79,31 +79,29 @@ export default function App() {
 				localToken = tokenFromHash;
 				window.localStorage.setItem('token', localToken);
 				window.location.hash = '';
+				setToken(localToken);
 			}
+		} else {
+			setToken(localToken);
 		}
-
-		setToken(localToken);
 	}, []);
 
 	useEffect(() => {
-		if (token) {
-			const fetchProfile = async () => {
-				setLoadingProfile(true);
-				try {
-					const profileData = await getProfileData();
-					setProfile(profileData);
-				} catch (error) {
-					console.error('Failed to fetch profile data:', error);
-					setProfile(null);
-				} finally {
-					setLoadingProfile(false);
-				}
-			};
+		const fetchProfile = async () => {
+			if (!token) return;
+			setLoadingProfile(true);
+			try {
+				const profileData = await getProfileData();
+				setProfile(profileData);
+			} catch (error) {
+				console.error('Failed to fetch profile data:', error);
+				setProfile(null);
+			} finally {
+				setLoadingProfile(false);
+			}
+		};
 
-			fetchProfile();
-		} else {
-			setProfile(null);
-		}
+		fetchProfile();
 	}, [token]);
 
 	const logout = () => {
