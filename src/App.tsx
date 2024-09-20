@@ -1,14 +1,20 @@
 import { Button, ConfigProvider } from 'antd';
+import { calc } from 'antd/es/theme/internal';
 import { useEffect, useState } from 'react';
 
 import { getProfileData } from './api/profile/route';
 import Analysis from './components/GetCI';
+import DurationAnalysis from './components/GetDurationTrends';
+import ExplicitAnalysis from './components/GetExplicitTrends';
+import PopularityAnalysis from './components/GetPopularityTrends';
+import ReleaseAnalysis from './components/GetReleaseTrends';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
 import RecentSong from './components/RecentSong';
 import GetTopSong from './components/TopSong';
 import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
+import { calculateConfidenceInterval } from './utils/CI';
 
 const parseTokenFromHash = (hash: string): string | null => {
 	const tokenFromHash = hash
@@ -66,6 +72,17 @@ export default function App() {
 	const trackPopularityArray = trackData.top100Tracks.map(
 		(track) => track.trackPopularity,
 	);
+
+	const trackDurationArray = trackData.top100Tracks.map(
+		(track) => track.trackDuration,
+	);
+	const trackReleaseArray = trackData.top100Tracks.map(
+		(track) => track.trackRelease,
+	);
+	const trackExplicitArray = trackData.top100Tracks.map(
+		(track) => track.trackExplicit,
+	);
+
 	return (
 		<ConfigProvider
 			theme={{
@@ -104,7 +121,11 @@ export default function App() {
 						</div>
 					)}
 				</div>
-				<Analysis name="Track Data Analysis" array={trackPopularityArray} />
+
+				<PopularityAnalysis array={trackPopularityArray} />
+				<DurationAnalysis array={trackDurationArray} />
+				<ReleaseAnalysis array={trackReleaseArray} />
+				<ExplicitAnalysis array={trackExplicitArray} />
 			</div>
 		</ConfigProvider>
 	);
