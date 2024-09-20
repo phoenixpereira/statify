@@ -8,6 +8,8 @@ const scopes = [
 	'user-read-recently-played',
 	'user-top-read',
 	'user-follow-read',
+	'playlist-modify-public',
+	'playlist-modify-private',
 ];
 
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
