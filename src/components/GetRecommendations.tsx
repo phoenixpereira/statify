@@ -20,7 +20,7 @@ export default function GetRecommendations({ trackData }: PAProps) {
 		setMessage('');
 
 		try {
-			const firstThree = trackData.slice(0, 3).map((track) => track.trackID);
+			const firstThree = trackData.slice(0, 5).map((track) => track.trackID);
 			console.log(firstThree);
 
 			const recommendations = await fetchFromSpotify(
@@ -48,7 +48,7 @@ export default function GetRecommendations({ trackData }: PAProps) {
 	return (
 		<div className="flex flex-col items-center">
 			<h1 className="text-xl font-bold">Get Recommendations</h1>
-			<p>Generate a playlist based on your top 3 tracks.</p>
+			<p>Generate a playlist based on your top five tracks.</p>
 			<button
 				onClick={handleGeneratePlaylist}
 				disabled={loading}
