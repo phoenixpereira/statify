@@ -62,7 +62,7 @@ export default function GetTopTracks({ trackData }: GetTopTracksProps) {
 							<th className="p-1 lg:p-4">Image</th>
 							<th className="p-1 lg:p-4">Name</th>
 							<th className="p-1 lg:p-4">Artist</th>
-							<th className="p-1 lg:p-4">Spotify Link</th>
+							<th className="py-1 lg:p-4">Spotify Link</th>
 						</tr>
 					</thead>
 					<tbody>
