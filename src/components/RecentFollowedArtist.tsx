@@ -29,7 +29,7 @@ export default function GetRecentArtist() {
 	}, []);
 
 	return (
-		<div className="flex items-center justify-between rounded-lg bg-rose p-4 text-white shadow-md">
+		<div className="flex items-center justify-between rounded-lg p-4 text-white">
 			{recentArtist ? (
 				<>
 					<div className="flex items-center">

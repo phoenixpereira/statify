@@ -31,7 +31,7 @@ export default function GetRecentSong() {
 	}, []);
 
 	return (
-		<div className="flex items-center justify-between rounded-lg bg-rose p-2 text-white shadow-md lg:p-4">
+		<div className="flex items-center justify-between rounded-lg p-2 text-white lg:p-4">
 			{recentSong ? (
 				<>
 					<div className="flex items-center">

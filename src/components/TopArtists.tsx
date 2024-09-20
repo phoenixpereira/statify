@@ -34,8 +34,6 @@ export default function GetTopArtists({ artistData }: GetTopArtistsProps) {
 	// Show only top 10 when collapsed, otherwise show all
 	const displayedArtists = isCollapsed ? topArtists.slice(0, 10) : topArtists;
 
-	console.log('da', displayedArtists);
-
 	return (
 		<div className="p-1 lg:p-6">
 			<div className="mb-6 flex items-center justify-between">
