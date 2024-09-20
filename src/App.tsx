@@ -1,4 +1,3 @@
-import { Button, ConfigProvider } from 'antd';
 import { useEffect, useState } from 'react';
 
 import { getProfileData } from './api/profile/route';
@@ -72,64 +71,58 @@ export default function App() {
 	const isLoggedIn = !!token;
 
 	return (
-		<ConfigProvider
-			theme={{
-				token: {
-					colorPrimary: '#FCBB6D',
-					colorTextLightSolid: '#000000',
-				},
-			}}
-		>
-			<div className="min-h-screen bg-white">
-				<div className="container mx-auto px-4 py-8">
-					<Header
-						userName={profile?.display_name || 'Guest'}
-						onLogout={logout}
-						loggedIn={isLoggedIn}
-					/>
+		<div className="min-h-screen bg-white">
+			<div className="container mx-auto px-4 py-8">
+				<Header
+					userName={profile?.display_name || 'Guest'}
+					onLogout={logout}
+					loggedIn={isLoggedIn}
+				/>
 
-					{!isLoggedIn ? (
-						<div className="flex justify-center">
-							<Button type="primary" href={loginUrl}>
-								Log in to Spotify
-							</Button>
+				{!isLoggedIn ? (
+					<div className="flex justify-center">
+						<button
+							onClick={() => (window.location.href = loginUrl)}
+							className="rounded-md bg-rose px-4 py-2 font-bold text-white transition-colors hover:bg-apricot hover:text-black"
+						>
+							Log in to Spotify
+						</button>
+					</div>
+				) : (
+					<div className="grid grid-cols-1 gap-8 text-white xl:grid-cols-2">
+						<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
+							<GetTopTracks trackData={trackData.top100Tracks} />
 						</div>
-					) : (
-						<div className="grid grid-cols-1 gap-8 text-white xl:grid-cols-2">
-							<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
-								<GetTopTracks trackData={trackData.top100Tracks} />
-							</div>
-							<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
-								<GetTopArtists artistData={artistData.top50Artists} />
-							</div>
+						<div className="rounded-lg bg-slate p-4 shadow-md lg:p-6">
+							<GetTopArtists artistData={artistData.top50Artists} />
+						</div>
 
-							{[RecentSong, RecentArtist].map((Component, index) => (
-								<div
-									key={index}
-									className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
-								>
-									<Component />
-								</div>
-							))}
-							{[
-								PopularityAnalysis,
-								DurationAnalysis,
-								ReleaseAnalysis,
-								ExplicitAnalysis,
-								getRecommendations,
-								GetTop100Playlist,
-							].map((Component, index) => (
-								<div
-									key={index}
-									className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
-								>
-									<Component trackData={trackData.top100Tracks} />
-								</div>
-							))}
-						</div>
-					)}
-				</div>
+						{[RecentSong, RecentArtist].map((Component, index) => (
+							<div
+								key={index}
+								className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
+							>
+								<Component />
+							</div>
+						))}
+						{[
+							PopularityAnalysis,
+							DurationAnalysis,
+							ReleaseAnalysis,
+							ExplicitAnalysis,
+							getRecommendations,
+							GetTop100Playlist,
+						].map((Component, index) => (
+							<div
+								key={index}
+								className="rounded-lg bg-slate p-4 shadow-md lg:p-6"
+							>
+								<Component trackData={trackData.top100Tracks} />
+							</div>
+						))}
+					</div>
+				)}
 			</div>
-		</ConfigProvider>
+		</div>
 	);
 }

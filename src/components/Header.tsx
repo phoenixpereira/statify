@@ -1,12 +1,14 @@
-import { Button, Space } from 'antd';
-
 interface HeaderProps {
 	userName?: string;
 	onLogout?: () => void;
 	loggedIn: boolean;
 }
 
-const Header = ({ userName, onLogout, loggedIn }: HeaderProps) => {
+export default function Header({
+	userName,
+	onLogout,
+	loggedIn,
+}: HeaderProps): JSX.Element {
 	return (
 		<header className="mb-16 flex items-center justify-between rounded-lg bg-steel p-4 text-white shadow-md">
 			<div className="flex items-center">
@@ -16,19 +18,14 @@ const Header = ({ userName, onLogout, loggedIn }: HeaderProps) => {
 			{loggedIn && (
 				<div className="flex items-center">
 					<h3 className="mr-4 text-lg font-semibold">Welcome {userName}!</h3>
-					<Space>
-						<Button
-							type="primary"
-							onClick={onLogout}
-							className="bg-apricot font-bold text-black"
-						>
-							Logout
-						</Button>
-					</Space>
+					<button
+						onClick={onLogout}
+						className="rounded-md bg-rose px-4 py-2 font-bold text-white transition-colors hover:bg-apricot hover:text-black"
+					>
+						Logout
+					</button>
 				</div>
 			)}
 		</header>
 	);
-};
-
-export default Header;
+}
