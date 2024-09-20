@@ -27,7 +27,7 @@ export default function PopularityAnalysis({ trackData }: PAProps) {
 		null,
 	);
 	const [popularityData, setPopularityData] = useState<
-		{ range: string; count: number }[]
+		{ range: string; Count: number }[]
 	>([]);
 	const [lineString, setLineString] = useState<string | undefined>(undefined);
 
@@ -68,7 +68,7 @@ export default function PopularityAnalysis({ trackData }: PAProps) {
 
 				const data = Object.keys(frequencyMap).map((key) => ({
 					range: key,
-					count: frequencyMap[key],
+					Count: frequencyMap[key],
 				}));
 
 				data.sort((a, b) => {
@@ -126,8 +126,8 @@ export default function PopularityAnalysis({ trackData }: PAProps) {
 							fill="#F7F4EF"
 						/>
 					</YAxis>
-					<Tooltip />
-					<Bar dataKey="count" fill="#FCBB6D" />
+					<Tooltip wrapperStyle={{ color: 'black' }} />
+					<Bar dataKey="Count" fill="#FCBB6D" />
 					<ReferenceLine
 						x={lineString}
 						stroke="#D3737F"
