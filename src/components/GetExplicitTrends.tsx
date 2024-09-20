@@ -78,7 +78,7 @@ export default function ExplicitAnalysis({ trackData }: PAProps) {
 					fill="#8884d8"
 					label
 				>
-					{chartData.map((entry, index) => (
+					{chartData.map((_entry, index) => (
 						<Cell
 							key={`cell-${index}`}
 							fill={index === 0 ? '#FCBB6D' : '#D3737F'}

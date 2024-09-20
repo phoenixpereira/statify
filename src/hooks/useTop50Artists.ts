@@ -3,9 +3,21 @@ import { useState, useEffect } from 'react';
 import { fetchFromSpotify } from '../utils/fetcher';
 
 interface Artist {
+	key: string;
 	artistName: string;
 	artistImage: string;
 	spotifyLink: string;
+}
+
+interface SpotifyArtist {
+	id: string;
+	name: string;
+	images: { url: string }[];
+	external_urls: { spotify: string };
+}
+
+interface SpotifyTopArtistsResponse {
+	items: SpotifyArtist[];
 }
 
 export default function useTop50Artists() {
@@ -16,12 +28,12 @@ export default function useTop50Artists() {
 	useEffect(() => {
 		const fetchTop50Artists = async () => {
 			try {
-				const url1 = 'me/top/artists?limit=50&offset=0'; // Top 1-50
+				const url = 'me/top/artists?limit=50&offset=0'; // Top 1-50
+				const data: SpotifyTopArtistsResponse = await fetchFromSpotify(url);
 
-				const data = await Promise.all([fetchFromSpotify(url1)]);
-
-				if (data) {
-					const formattedArtists = data[0].items.map((artist: any) => ({
+				if (data && data.items) {
+					const formattedArtists = data.items.map((artist) => ({
+						key: artist.id,
 						artistName: artist.name,
 						artistImage: artist.images[0]?.url || '',
 						spotifyLink: artist.external_urls.spotify,

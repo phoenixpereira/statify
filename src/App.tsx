@@ -16,6 +16,38 @@ import useTop50Artists from './hooks/useTop50Artists';
 import useTop100Tracks from './hooks/useTop100Tracks';
 import { loginUrl } from './spotify';
 
+interface Track {
+	key: string;
+	trackID: string;
+	trackName: string;
+	artist: string;
+	trackImage: string;
+	spotifyLink: string;
+	trackPopularity: number;
+	trackDuration: number;
+	trackRelease: number;
+	trackExplicit: boolean;
+}
+
+interface Artist {
+	key: string;
+	artistName: string;
+	artistImage: string;
+	spotifyLink: string;
+}
+
+interface TrackData {
+	top100Tracks: Track[];
+	loading: boolean;
+	error: string | null;
+}
+
+interface ArtistData {
+	top50Artists: Artist[];
+	loading: boolean;
+	error: string | null;
+}
+
 const parseTokenFromHash = (hash: string): string | null => {
 	const tokenFromHash = hash
 		.substring(1)
@@ -33,8 +65,8 @@ export default function App() {
 	const [token, setToken] = useState<string | null>(null);
 	const [profile, setProfile] = useState<ProfileData | null>(null);
 
-	const trackData = useTop100Tracks();
-	const artistData = useTop50Artists();
+	const trackData: TrackData = useTop100Tracks();
+	const artistData: ArtistData = useTop50Artists();
 
 	useEffect(() => {
 		const hash = window.location.hash;
