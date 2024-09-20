@@ -75,17 +75,17 @@ export default function GetTopSongs() {
 								key={song.key}
 								className="lg:text-md bg-rose text-sm transition-colors hover:bg-apricot"
 							>
-								<td className="p-1 font-bold lg:p-4">{index + 1}</td>
-								<td className="p-1 lg:p-4">
+								<td className="p-1 font-bold lg:px-4 lg:py-2">{index + 1}</td>
+								<td className="p-1 lg:px-4 lg:py-2">
 									<img
 										src={song.image}
 										alt={`${song.name} cover`}
 										className="h-12 w-12 rounded-lg"
 									/>
 								</td>
-								<td className="p-1 lg:p-4">{song.name}</td>
-								<td className="p-1 lg:p-4">{song.artist}</td>
-								<td className="p-1 lg:p-4">
+								<td className="p-1 lg:px-4 lg:py-2">{song.name}</td>
+								<td className="p-1 lg:px-4 lg:py-2">{song.artist}</td>
+								<td className="p-1 lg:px-4 lg:py-2">
 									<a
 										href={song.url}
 										target="_blank"

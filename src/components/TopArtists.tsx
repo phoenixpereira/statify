@@ -71,16 +71,16 @@ export default function GetTopArtists() {
 								key={artist.key}
 								className="lg:text-md bg-rose text-sm transition-colors hover:bg-apricot"
 							>
-								<td className="p-1 font-bold lg:p-4">{index + 1}</td>
-								<td className="p-1 lg:p-4">
+								<td className="p-1 font-bold lg:px-4 lg:py-2">{index + 1}</td>
+								<td className="p-1 lg:px-4 lg:py-2">
 									<img
 										src={artist.image}
 										alt={`${artist.name} cover`}
 										className="h-12 w-12 rounded-lg"
 									/>
 								</td>
-								<td className="p-1 lg:p-4">{artist.name}</td>
-								<td className="p-1 lg:p-4">
+								<td className="p-1 lg:px-4 lg:py-2">{artist.name}</td>
+								<td className="p-1 lg:px-4 lg:py-2">
 									<a
 										href={artist.url}
 										target="_blank"
