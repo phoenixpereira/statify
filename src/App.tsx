@@ -80,10 +80,18 @@ export default function App() {
 				/>
 
 				{!isLoggedIn ? (
-					<div className="flex justify-center">
+					<div className="flex flex-col items-center justify-center rounded-lg bg-slate p-6 text-white shadow-md">
+						<h2 className="mb-4 text-center text-2xl font-semibold">
+							Welcome to Statify!
+						</h2>
+						<p className="mb-4 text-center">
+							Log in with your Spotify account to view your top tracks and
+							artists, explore personalised stats, and create a recommended
+							playlist just for you!
+						</p>
 						<button
 							onClick={() => (window.location.href = loginUrl)}
-							className="rounded-md bg-rose px-4 py-2 font-bold text-white transition-colors hover:bg-apricot hover:text-black"
+							className="rounded-md bg-rose px-6 py-3 font-bold text-white shadow-lg transition-colors hover:bg-apricot hover:text-black"
 						>
 							Log in to Spotify
 						</button>
