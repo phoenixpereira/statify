@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { createPlaylist } from '../utils/createPlaylist';
 import { fetchFromSpotify } from '../utils/fetcher';
@@ -11,40 +11,54 @@ interface PAProps {
 	trackData: Track[];
 }
 
-export default function getRecommendations({ trackData }: PAProps) {
-	useEffect(() => {
-		const Playlist = async () => {
-			try {
-				const firstThree = trackData.slice(0, 3).map((track) => track.trackID);
-				console.log(firstThree);
+export default function GetRecommendations({ trackData }: PAProps) {
+	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState('');
 
-				const recommendations = await fetchFromSpotify(
-					`recommendations?seed_tracks=${firstThree}`,
-				);
-				console.log(recommendations);
-				const trackIDs = recommendations.tracks.map(
-					(track: { id: string }) => track.id,
-				);
-				console.log(trackIDs);
+	const handleGeneratePlaylist = async () => {
+		setLoading(true);
+		setMessage('');
 
-				const [userDetails] = await Promise.all([
-					// getting parameters for API call
-					fetchFromSpotify('me'),
-				]);
-				const userID = userDetails.id;
+		try {
+			const firstThree = trackData.slice(0, 5).map((track) => track.trackID);
+			console.log(firstThree);
 
-				createPlaylist(userID, trackIDs);
-			} catch (err) {
-				console.error('Error forming recommendations:', err);
-			}
-		};
+			const recommendations = await fetchFromSpotify(
+				`recommendations?seed_tracks=${firstThree.join(',')}`,
+			);
+			console.log(recommendations);
+			const trackIDs = recommendations.tracks.map(
+				(track: { id: string }) => track.id,
+			);
+			console.log(trackIDs);
 
-		Playlist();
-	}, []);
+			const [userDetails] = await Promise.all([fetchFromSpotify('me')]);
+			const userID = userDetails.id;
+
+			await createPlaylist(userID, trackIDs);
+			setMessage('Recommended playlist created! Check your account.');
+		} catch (err) {
+			console.error('Error forming recommendations:', err);
+			setMessage('Error creating playlist. Please try again.');
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	return (
-		<div>
-			<b>AI Recommended Playlist Created! Check your Account</b>
+		<div className="flex flex-col items-center">
+			<h1 className="text-xl font-bold">Get Recommendations</h1>
+			<p>Generate a playlist based on your top five tracks.</p>
+			<button
+				onClick={handleGeneratePlaylist}
+				disabled={loading}
+				className={`mt-4 rounded-md px-6 py-3 font-semibold text-white shadow-lg ${
+					loading ? 'cursor-not-allowed bg-steel' : 'bg-rose hover:bg-apricot'
+				} transition-all duration-200 ease-in-out`}
+			>
+				{loading ? 'Generating Playlist...' : 'Generate Playlist'}
+			</button>
+			{message && <p className="mt-4 text-lg font-semibold">{message}</p>}
 		</div>
 	);
 }

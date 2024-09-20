@@ -2,9 +2,9 @@ export async function createPlaylist(userID: string, trackIDs: string[]) {
 	const token = window.localStorage.getItem('token') || '';
 	const playlistUrl = `https://api.spotify.com/v1/users/${userID}/playlists`;
 	const createPlaylistBody = {
-		name: 'Recommended Playlist',
-		description: 'Playlist created with song recommendations',
-		public: false, // set to true if you want it public
+		name: 'Statify Recommendations',
+		description: 'Playlist created by Statify',
+		public: false,
 	};
 
 	try {
@@ -19,7 +19,10 @@ export async function createPlaylist(userID: string, trackIDs: string[]) {
 		});
 
 		if (!createPlaylistResponse.ok) {
-			throw new Error('Failed to create playlist');
+			const errorResponse = await createPlaylistResponse.json();
+			throw new Error(
+				`Failed to create playlist: ${errorResponse.error.message}`,
+			);
 		}
 
 		const playlistData = await createPlaylistResponse.json();
@@ -41,7 +44,10 @@ export async function createPlaylist(userID: string, trackIDs: string[]) {
 		});
 
 		if (!addTracksResponse.ok) {
-			throw new Error('Failed to add tracks to playlist');
+			const errorResponse = await addTracksResponse.json();
+			throw new Error(
+				`Failed to add tracks to playlist: ${errorResponse.error.message}`,
+			);
 		}
 
 		console.log('Playlist created and tracks added successfully!');
