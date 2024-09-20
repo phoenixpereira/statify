@@ -38,7 +38,7 @@ export default function GetTop100Playlist({ trackData }: PAProps) {
 
 	return (
 		<div className="flex flex-col items-center">
-			<h1 className="text-xl font-bold">Form Top 100 Playlist</h1>
+			<h1 className="text-xl font-bold">Get Top 100 Playlist</h1>
 			<p>Generate a playlist that has your top 100 tracks.</p>
 			<button
 				onClick={handleGeneratePlaylist}
