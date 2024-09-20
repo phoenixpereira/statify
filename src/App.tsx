@@ -5,6 +5,7 @@ import { getProfileData } from './api/profile/route';
 import DurationAnalysis from './components/GetDurationTrends';
 import ExplicitAnalysis from './components/GetExplicitTrends';
 import PopularityAnalysis from './components/GetPopularityTrends';
+import getRecommendations from './components/GetRecommendations';
 import ReleaseAnalysis from './components/GetReleaseTrends';
 import Header from './components/Header';
 import RecentArtist from './components/MostRecentFollowedArtist';
@@ -124,6 +125,7 @@ export default function App() {
 								DurationAnalysis,
 								ReleaseAnalysis,
 								ExplicitAnalysis,
+								getRecommendations,
 							].map((Component, index) => (
 								<div
 									key={index}

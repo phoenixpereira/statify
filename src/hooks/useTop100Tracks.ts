@@ -11,6 +11,7 @@ interface Track {
 	trackDuration: number;
 	artist: string;
 	spotifyLink: string;
+	trackID: string;
 }
 
 export default function useTop100Tracks() {
@@ -43,6 +44,7 @@ export default function useTop100Tracks() {
 							.map((artist: { name: string }) => artist.name)
 							.join(', '),
 						spotifyLink: track.external_urls.spotify,
+						trackID: track.id,
 					}));
 
 					setTop100Tracks(formattedTracks);
