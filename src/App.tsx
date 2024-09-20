@@ -83,7 +83,7 @@ export default function App() {
 							</Button>
 						</div>
 					) : (
-						<div className="grid grid-cols-1 gap-8 text-white lg:grid-cols-2">
+						<div className="grid grid-cols-1 gap-8 text-white">
 							{[GetTopSongs, RecentArtist, RecentSong].map(
 								(Component, index) => (
 									<div
