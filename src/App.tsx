@@ -7,6 +7,7 @@ import ExplicitAnalysis from './components/GetExplicitTrends';
 import PopularityAnalysis from './components/GetPopularityTrends';
 import getRecommendations from './components/GetRecommendations';
 import ReleaseAnalysis from './components/GetReleaseTrends';
+import GetTop100Playlist from './components/GetTop100Playlist';
 import Header from './components/Header';
 import RecentArtist from './components/RecentFollowedArtist';
 import RecentSong from './components/RecentSong';
@@ -116,6 +117,7 @@ export default function App() {
 								ReleaseAnalysis,
 								ExplicitAnalysis,
 								getRecommendations,
+								GetTop100Playlist,
 							].map((Component, index) => (
 								<div
 									key={index}
