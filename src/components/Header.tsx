@@ -13,7 +13,7 @@ export default function Header({
 		<header className="mb-16 flex items-center justify-between rounded-lg bg-steel p-4 text-white shadow-md">
 			<div className="flex items-center">
 				<img
-					src="/statify-white.svg"
+					src={`${import.meta.env.BASE_URL}statify-white.svg`}
 					alt="Statify Logo"
 					className="mr-2 h-6 lg:mr-4 lg:h-8"
 				/>
